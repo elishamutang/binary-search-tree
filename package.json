@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
+    "type" : "module",
     "scripts": {
         "build": "webpack --config webpack.prod.js",
         "start": "webpack serve --open --config webpack.dev.js",
@@ -33,6 +34,7 @@
     "dependencies": {
         "boxicons": "^2.1.4",
         "date-fns": "^3.3.1",
+        "mergesort-by-eli": "^1.0.2",
         "rcolor": "^2.0.2"
     }
 }
