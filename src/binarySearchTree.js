@@ -83,8 +83,28 @@ function tree(array) {
                     prevNode.right = nodeToLink
                 }
             } else {
+                // !* FIX THIS
                 // Case 3: Two children
-                console.log(nodeToDelete)
+                // Method: Take minimum of right subtree of node that is going to be deleted.
+                let minNode = nodeToDelete.right
+
+                while (minNode.left !== null) {
+                    minNode = minNode.left
+                }
+
+                // console.log(minNode)
+
+                let parentOfMinNode = findPrevNode(minNode.data, tmp)
+
+                // If prevNode === undefined, we are at level-0 node (root node)
+                if (!prevNode) {
+                    nodeToDelete.data = minNode.data
+                    parentOfMinNode.left = minNode.right
+                } else {
+                    // console.log(parentOfMinNode)
+                    nodeToDelete.data = minNode.data
+                    nodeToDelete.right = minNode.right
+                }
             }
         },
 
@@ -155,10 +175,20 @@ rootNode.insert(6)
 
 // REMOVAL
 // rootNode.deleteItem(6)
+// rootNode.deleteItem(23)
+// rootNode.deleteItem(6345)
 // rootNode.deleteItem(1)
 // rootNode.deleteItem(9)
 // rootNode.deleteItem(324)
+// rootNode.deleteItem(5)
 // rootNode.deleteItem(4)
+// rootNode.deleteItem(67)
+// rootNode.deleteItem(324)
+// rootNode.deleteItem(8)
+// rootNode.deleteItem(9)
+// rootNode.deleteItem(67)
+// rootNode.deleteItem(4)
+// rootNode.deleteItem(5)
 
 // FIND
 // console.log(rootNode.find(6))
