@@ -15,7 +15,7 @@ function tree(array) {
 
         insert(value) {
             let newNode = node(value)
-            let tmp = rootNode.root
+            let tmp = this.root
 
             const getRoot = (newNode, tmp) => {
                 if (tmp.left === null && tmp.right === null) {
@@ -43,9 +43,72 @@ function tree(array) {
             }
         },
 
-        deleteItem(value) {},
+        deleteItem(value) {
+            let tmp = this.root
+            let prev
 
-        find(value) {},
+            const findPrevNode = (value, tmp) => {
+                if (value === tmp.data) {
+                    return
+                }
+
+                if (value < tmp.data) {
+                    prev = tmp
+                    tmp = findPrevNode(value, tmp.left)
+                } else {
+                    prev = tmp
+                    tmp = findPrevNode(value, tmp.right)
+                }
+
+                return prev
+            }
+
+            let prevNode = findPrevNode(value, tmp)
+            let nodeToDelete = this.find(value)
+
+            // Case 1: No child
+            if (nodeToDelete.right === null && nodeToDelete.left === null) {
+                if (nodeToDelete.data < prevNode.data) {
+                    prevNode.left = null
+                } else {
+                    prevNode.right = null
+                }
+            } else if (nodeToDelete.right !== null || nodeToDelete.left !== null) {
+                // Case 2: One child
+                let nodeToLink = nodeToDelete.right !== null ? nodeToDelete.right : nodeToDelete.left
+
+                if (nodeToDelete.data < prevNode.data) {
+                    prevNode.left = nodeToLink
+                } else {
+                    prevNode.right = nodeToLink
+                }
+            }
+        },
+
+        find(value) {
+            let newNode = node(value)
+            let tmp = this.root
+
+            const traverse = (newNode, tmp) => {
+                if (newNode.data === tmp.data) {
+                    return tmp
+                }
+
+                if (newNode.data < tmp.data) {
+                    tmp = traverse(newNode, tmp.left)
+                } else {
+                    tmp = traverse(newNode, tmp.right)
+                }
+
+                return tmp
+            }
+
+            try {
+                return traverse(newNode, tmp)
+            } catch {
+                throw new Error('Value does not exist.')
+            }
+        },
     }
 }
 
@@ -79,9 +142,19 @@ const noDuplicates = sortedArr.filter((elem, idx) => {
 const rootNode = tree(noDuplicates)
 
 rootNode.insert(6)
-rootNode.insert(10)
-rootNode.insert(0)
-rootNode.insert(2)
-rootNode.insert(11)
-rootNode.insert(200)
+
+// INSERTION
+// rootNode.insert(10)
+// rootNode.insert(0)
+// rootNode.insert(2)
+// rootNode.insert(11)
+// rootNode.insert(200)
+
+// REMOVAL
+// rootNode.deleteItem(6)
+// rootNode.deleteItem(9)
+// rootNode.deleteItem(324)
+
+// FIND
+// console.log(rootNode.find(6))
 prettyPrint(rootNode.root)
