@@ -73,7 +73,7 @@ function tree(array) {
                 } else {
                     prevNode.right = null
                 }
-            } else if (nodeToDelete.right !== null || nodeToDelete.left !== null) {
+            } else if (nodeToDelete.right === null || nodeToDelete.left === null) {
                 // Case 2: One child
                 let nodeToLink = nodeToDelete.right !== null ? nodeToDelete.right : nodeToDelete.left
 
@@ -82,6 +82,9 @@ function tree(array) {
                 } else {
                     prevNode.right = nodeToLink
                 }
+            } else {
+                // Case 3: Two children
+                console.log(nodeToDelete)
             }
         },
 
@@ -152,8 +155,10 @@ rootNode.insert(6)
 
 // REMOVAL
 // rootNode.deleteItem(6)
+// rootNode.deleteItem(1)
 // rootNode.deleteItem(9)
 // rootNode.deleteItem(324)
+// rootNode.deleteItem(4)
 
 // FIND
 // console.log(rootNode.find(6))
