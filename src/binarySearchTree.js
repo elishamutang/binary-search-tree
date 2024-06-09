@@ -3,7 +3,7 @@ import { prettyPrint } from './prettyPrint.js'
 
 function node(data) {
     return {
-        data,
+        data: parseInt(data),
         left: null,
         right: null,
     }
@@ -17,18 +17,29 @@ function tree(array) {
             let newNode = node(value)
             let tmp = rootNode.root
 
-            while (tmp.left !== null || tmp.right !== null) {
-                if (newNode.data < tmp.data) {
-                    tmp = tmp.left
-                } else {
-                    tmp = tmp.right
+            const getRoot = (newNode, tmp) => {
+                if (tmp.left === null && tmp.right === null) {
+                    return tmp
                 }
+
+                // If tmp.left or tmp.right is null, return tmp. Else, call getRoot() function to traverse down the tree.
+                if (newNode.data < tmp.data) {
+                    tmp = tmp.left === null ? tmp : getRoot(newNode, tmp.left)
+                } else if (newNode.data > tmp.data) {
+                    tmp = tmp.right === null ? tmp : getRoot(newNode, tmp.right)
+                }
+
+                return tmp
             }
 
-            if (newNode.data < tmp.data) {
-                tmp.left = newNode
+            let nodeRoot = getRoot(newNode, tmp)
+
+            if (newNode.data < nodeRoot.data) {
+                nodeRoot.left = newNode
+            } else if (newNode.data > nodeRoot.data) {
+                nodeRoot.right = newNode
             } else {
-                tmp.right = newNode
+                throw new Error('Identical val')
             }
         },
 
@@ -67,5 +78,10 @@ const noDuplicates = sortedArr.filter((elem, idx) => {
 
 const rootNode = tree(noDuplicates)
 
+rootNode.insert(6)
 rootNode.insert(10)
+rootNode.insert(0)
+rootNode.insert(2)
+rootNode.insert(11)
+rootNode.insert(200)
 prettyPrint(rootNode.root)
