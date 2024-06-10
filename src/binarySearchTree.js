@@ -93,7 +93,7 @@ function tree(array) {
                 }
 
                 // Recursively call deleteItem on minNode
-                this.deleteItem(minNode.data, tmp)
+                this.deleteItem(minNode.data)
                 nodeToDelete.data = minNode.data
             }
         },
@@ -122,6 +122,8 @@ function tree(array) {
                 throw new Error('Value does not exist.')
             }
         },
+
+        levelOrder(callback) {},
     }
 }
 
