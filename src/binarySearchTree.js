@@ -123,7 +123,55 @@ function tree(array) {
             }
         },
 
-        levelOrder(callback) {},
+        levelOrder(callback) {
+            // Level order traversal is breadth-first level traversal order of a BST.
+            let queue = [this.root]
+
+            let result = []
+
+            // Method 1: Iteration
+            while (queue.length !== 0) {
+                let visitedNode = queue.shift()
+
+                if (visitedNode !== null) {
+                    result.push(visitedNode.data)
+                }
+
+                if (visitedNode.left !== null) {
+                    queue.push(visitedNode.left)
+                }
+
+                if (visitedNode.right !== null) {
+                    queue.push(visitedNode.right)
+                }
+            }
+
+            // Method 2: Recursion
+            // let visitedNode = queue.shift()
+
+            // callback(visitedNode)
+
+            // function callback(visitedNode) {
+            //     if (visitedNode !== null) {
+            //         result.push(visitedNode.data)
+            //     }
+
+            //     if (visitedNode.left !== null) {
+            //         queue.push(visitedNode.left)
+            //     }
+
+            //     if (visitedNode.right !== null) {
+            //         queue.push(visitedNode.right)
+            //     }
+
+            //     if (queue.length !== 0) {
+            //         visitedNode = queue.shift()
+            //         callback(visitedNode)
+            //     }
+            // }
+
+            return result
+        },
     }
 }
 
@@ -191,4 +239,8 @@ rootNode.insert(6)
 
 // FIND
 // console.log(rootNode.find(6))
+
+// LEVEL ORDER TRAVERSAL
+console.log(rootNode.levelOrder())
+
 prettyPrint(rootNode.root)
