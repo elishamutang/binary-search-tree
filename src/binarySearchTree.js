@@ -63,6 +63,7 @@ function tree(array) {
                 return prev
             }
 
+            // prevNode is the node before the value that is deleted. (e.g prevNode of value 4 is 8.)
             let prevNode = findPrevNode(value, tmp)
             let nodeToDelete = this.find(value)
 
@@ -83,7 +84,6 @@ function tree(array) {
                     prevNode.right = nodeToLink
                 }
             } else {
-                // !* FIX THIS
                 // Case 3: Two children
                 // Method: Take minimum of right subtree of node that is going to be deleted.
                 let minNode = nodeToDelete.right
@@ -92,19 +92,9 @@ function tree(array) {
                     minNode = minNode.left
                 }
 
-                // console.log(minNode)
-
-                let parentOfMinNode = findPrevNode(minNode.data, tmp)
-
-                // If prevNode === undefined, we are at level-0 node (root node)
-                if (!prevNode) {
-                    nodeToDelete.data = minNode.data
-                    parentOfMinNode.left = minNode.right
-                } else {
-                    // console.log(parentOfMinNode)
-                    nodeToDelete.data = minNode.data
-                    nodeToDelete.right = minNode.right
-                }
+                // Recursively call deleteItem on minNode
+                this.deleteItem(minNode.data, tmp)
+                nodeToDelete.data = minNode.data
             }
         },
 
@@ -189,6 +179,13 @@ rootNode.insert(6)
 // rootNode.deleteItem(67)
 // rootNode.deleteItem(4)
 // rootNode.deleteItem(5)
+// rootNode.deleteItem(6)
+// rootNode.deleteItem(67)
+// rootNode.deleteItem(324)
+// rootNode.deleteItem(8)
+// rootNode.deleteItem(1)
+// rootNode.deleteItem(5)
+// rootNode.deleteItem(3)
 
 // FIND
 // console.log(rootNode.find(6))
