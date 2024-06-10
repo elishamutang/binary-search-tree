@@ -172,6 +172,75 @@ function tree(array) {
 
             return result
         },
+
+        preOrder(callback) {
+            // Recursion
+            let tmp = this.root
+            let result = []
+
+            function callback(root) {
+                if (root === null) {
+                    return
+                }
+
+                result.push(root.data)
+                callback(root.left)
+                callback(root.right)
+            }
+
+            callback(tmp)
+
+            return result
+        },
+
+        inOrder(callback) {
+            // Recursion
+            // Fun fact: In-Order traversal gives me a sorted array.
+            let tmp = this.root
+            let result = []
+
+            function callback(root) {
+                if (root === null) {
+                    return
+                }
+
+                callback(root.left)
+                result.push(root.data)
+                callback(root.right)
+            }
+
+            callback(tmp)
+
+            return result
+        },
+
+        postOrder(callback) {
+            let tmp = this.root
+            let result = []
+
+            function callback(root) {
+                if (root === null) {
+                    return
+                }
+
+                callback(root.left)
+                callback(root.right)
+                result.push(root.data)
+            }
+
+            callback(tmp)
+
+            return result
+        },
+
+        height(node) {
+            let givenNode = this.find(node)
+            let counter = 0
+
+            console.log(counter)
+        },
+
+        depth(node) {},
     }
 }
 
@@ -241,6 +310,18 @@ rootNode.insert(6)
 // console.log(rootNode.find(6))
 
 // LEVEL ORDER TRAVERSAL
-console.log(rootNode.levelOrder())
+// console.log(rootNode.levelOrder())
+
+// PRE-ORDER TRAVERSAL
+// console.log(rootNode.preOrder())
+
+// IN-ORDER TRAVERSAL
+// console.log(rootNode.inOrder())
+
+// POST-ORDER TRAVERSAL
+// console.log(rootNode.postOrder())
+
+// HEIGHT OF NODE (GIVEN NODE TO LEAF NODE)
+console.log(rootNode.height(5))
 
 prettyPrint(rootNode.root)
