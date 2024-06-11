@@ -250,7 +250,25 @@ function tree(array) {
             return findHeight(givenNode)
         },
 
-        depth(node) {},
+        depth(node) {
+            let givenNode = this.find(node)
+
+            const findDepth = (node) => {
+                if (node === givenNode) {
+                    return 0
+                } else {
+                    if (givenNode.data < node.data) {
+                        return findDepth(node.left) + 1
+                    }
+
+                    if (givenNode.data > node.data) {
+                        return findDepth(node.right) + 1
+                    }
+                }
+            }
+
+            return findDepth(this.root)
+        },
     }
 }
 
@@ -332,6 +350,9 @@ rootNode.insert(6)
 // console.log(rootNode.postOrder())
 
 // HEIGHT OF NODE (GIVEN NODE TO LEAF NODE)
-console.log(rootNode.height(8))
+// console.log(rootNode.height(8))
+
+// DEPTH OF NODE (GIVEN NODE TO TREE ROOT NODE)
+console.log(rootNode.depth(6))
 
 prettyPrint(rootNode.root)
