@@ -235,9 +235,19 @@ function tree(array) {
 
         height(node) {
             let givenNode = this.find(node)
-            let counter = 0
 
-            console.log(counter)
+            const findHeight = (node) => {
+                if (node === null) {
+                    return -1
+                }
+
+                let leftHeight = findHeight(node.left)
+                let rightHeight = findHeight(node.right)
+
+                return Math.max(leftHeight, rightHeight) + 1
+            }
+
+            return findHeight(givenNode)
         },
 
         depth(node) {},
@@ -322,6 +332,6 @@ rootNode.insert(6)
 // console.log(rootNode.postOrder())
 
 // HEIGHT OF NODE (GIVEN NODE TO LEAF NODE)
-console.log(rootNode.height(5))
+console.log(rootNode.height(8))
 
 prettyPrint(rootNode.root)
