@@ -269,6 +269,47 @@ function tree(array) {
 
             return findDepth(this.root)
         },
+
+        isBalanced() {
+            let tmp = this.root
+            let leftHeight, rightHeight
+
+            const checkTree = (node) => {
+                if (node === null) {
+                    return
+                }
+
+                if (node.left !== null) {
+                    leftHeight = this.height(node.left.data)
+                }
+
+                if (node.right !== null) {
+                    rightHeight = this.height(node.right.data)
+                }
+
+                let diff = leftHeight - rightHeight
+                diff = diff > 0 ? diff : diff * -1
+
+                console.log(`Node: ${node.data}, Diff: ${diff}, Left: ${leftHeight}, Right: ${rightHeight}`)
+
+                checkTree(node.left)
+                checkTree(node.right)
+
+                return diff
+            }
+
+            return checkTree(tmp)
+
+            // let leftHeight = this.height(this.root.left.data)
+            // let rightHeight = this.height(this.root.right.data)
+            // let diff = leftHeight - rightHeight
+            // console.log(`Left: ${leftHeight}`)
+            // console.log(`Right: ${rightHeight}`)
+            // console.log(`Diff: ${diff > 0 ? diff : diff * -1}`)
+            // return diff > 0 ? diff : diff * -1
+        },
+
+        rebalance() {},
     }
 }
 
@@ -353,6 +394,12 @@ rootNode.insert(6)
 // console.log(rootNode.height(8))
 
 // DEPTH OF NODE (GIVEN NODE TO TREE ROOT NODE)
-console.log(rootNode.depth(6))
+// console.log(rootNode.depth(6))
+
+// ISBALANCE (CHECK IF TREE IS BALANCED)
+// console.log(rootNode.insert(10))
+// console.log(rootNode.insert(11))
+// console.log(rootNode.insert(13))
+console.log(rootNode.isBalanced())
 
 prettyPrint(rootNode.root)
