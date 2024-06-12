@@ -244,6 +244,10 @@ function tree(array) {
                 let leftHeight = findHeight(node.left)
                 let rightHeight = findHeight(node.right)
 
+                // console.log(
+                //     `Node: ${node.data}, Left: ${leftHeight}, Right: ${rightHeight}, Height: ${Math.max(leftHeight, rightHeight) + 1}`
+                // )
+
                 return Math.max(leftHeight, rightHeight) + 1
             }
 
@@ -272,41 +276,30 @@ function tree(array) {
 
         isBalanced() {
             let tmp = this.root
-            let leftHeight, rightHeight
 
             const checkTree = (node) => {
                 if (node === null) {
                     return
                 }
 
-                if (node.left !== null) {
-                    leftHeight = this.height(node.left.data)
-                }
-
-                if (node.right !== null) {
-                    rightHeight = this.height(node.right.data)
-                }
+                // If node.left or node.right is null, assign left / right height to be 0. Else call this.height() and +1 for given node.
+                let leftHeight = node.left === null ? 0 : this.height(node.left.data) + 1
+                let rightHeight = node.right === null ? 0 : this.height(node.right.data) + 1
 
                 let diff = leftHeight - rightHeight
                 diff = diff > 0 ? diff : diff * -1
+
+                if (diff > 1) return 'Tree is unbalanced.'
 
                 console.log(`Node: ${node.data}, Diff: ${diff}, Left: ${leftHeight}, Right: ${rightHeight}`)
 
                 checkTree(node.left)
                 checkTree(node.right)
 
-                return diff
+                return 'Tree is balanced.'
             }
 
             return checkTree(tmp)
-
-            // let leftHeight = this.height(this.root.left.data)
-            // let rightHeight = this.height(this.root.right.data)
-            // let diff = leftHeight - rightHeight
-            // console.log(`Left: ${leftHeight}`)
-            // console.log(`Right: ${rightHeight}`)
-            // console.log(`Diff: ${diff > 0 ? diff : diff * -1}`)
-            // return diff > 0 ? diff : diff * -1
         },
 
         rebalance() {},
@@ -391,7 +384,7 @@ rootNode.insert(6)
 // console.log(rootNode.postOrder())
 
 // HEIGHT OF NODE (GIVEN NODE TO LEAF NODE)
-// console.log(rootNode.height(8))
+// console.log(rootNode.height(1))
 
 // DEPTH OF NODE (GIVEN NODE TO TREE ROOT NODE)
 // console.log(rootNode.depth(6))
