@@ -22,6 +22,13 @@ A simple BST is shown below:
 -   BSTs require additional memory to store pointers to child nodes.
 -   Since the time complexity for search, insert, and delete operations is O(log n), which is good for big data sets but slower than some other data structures like arrays or hash tables, they are not well-suited for data structures that need to be accessed randomly.
 
+## To test out my JavaScript implementation of BST
+
+1. Fork/clone repo and run in your favorite editor (mine is VS Code).
+2. Run `npm install` to install all the necessary dependencies.
+3. Run `nodemon ./src/driverScript.js` to run the script using NodeJS.
+4. Un-comment the lines of code and have fun!
+
 ### References
 
 1. [GeeksforGeeks](https://www.geeksforgeeks.org/applications-advantages-and-disadvantages-of-binary-search-tree/)
