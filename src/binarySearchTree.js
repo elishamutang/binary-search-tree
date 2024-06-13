@@ -9,7 +9,7 @@ function node(data) {
     }
 }
 
-function tree(array) {
+export default function tree(array) {
     return {
         root: buildTree(array),
 
@@ -314,8 +314,7 @@ function tree(array) {
 
             try {
                 if (this.isBalanced(newArr) === 'Tree is unbalanced.') {
-                    let newTree = buildTree(newArr)
-                    return newTree
+                    return tree(newArr)
                 }
             } catch {
                 throw new Error('Tree is already balanced.')
