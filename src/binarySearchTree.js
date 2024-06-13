@@ -38,8 +38,10 @@ function tree(array) {
                 nodeRoot.left = newNode
             } else if (newNode.data > nodeRoot.data) {
                 nodeRoot.right = newNode
-            } else {
+            } else if (newNode.data === nodeRoot.data) {
                 throw new Error('Identical val')
+            } else {
+                throw new Error('Please insert a value')
             }
         },
 
@@ -289,7 +291,7 @@ function tree(array) {
                 let diff = leftHeight - rightHeight
                 diff = diff >= 0 ? diff : diff * -1
 
-                console.log(`Node: ${node.data}, Diff: ${diff}, Left: ${leftHeight}, Right: ${rightHeight}`)
+                // console.log(`Node: ${node.data}, Diff: ${diff}, Left: ${leftHeight}, Right: ${rightHeight}`)
 
                 if (diff > 1) return diff
 
@@ -306,7 +308,19 @@ function tree(array) {
             }
         },
 
-        rebalance() {},
+        rebalance() {
+            let tmp = this.root
+            let newArr = this.inOrder(tmp)
+
+            try {
+                if (this.isBalanced(newArr) === 'Tree is unbalanced.') {
+                    let newTree = buildTree(newArr)
+                    return newTree
+                }
+            } catch {
+                throw new Error('Tree is already balanced.')
+            }
+        },
     }
 }
 
@@ -339,7 +353,7 @@ const noDuplicates = sortedArr.filter((elem, idx) => {
 
 const rootNode = tree(noDuplicates)
 
-// rootNode.insert(6)
+rootNode.insert(6)
 
 // INSERTION
 // rootNode.insert(10)
@@ -399,6 +413,18 @@ const rootNode = tree(noDuplicates)
 // rootNode.insert(10)
 // rootNode.insert(11)
 // rootNode.insert(13)
-console.log(rootNode.isBalanced())
+// console.log(rootNode.isBalanced())
 
-prettyPrint(rootNode.root)
+// REBALANCE (RE-BALANCES AN UNBALANCED TREE)
+// const originalTree = rootNode
+
+// originalTree.insert(0)
+// originalTree.insert(2)
+// originalTree.insert(10)
+// originalTree.insert(11)
+// originalTree.insert(13)
+
+// const rebalancedTree = rootNode.rebalance()
+
+// prettyPrint(originalTree.root)
+// prettyPrint(rebalancedTree)
