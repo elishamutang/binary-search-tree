@@ -287,19 +287,23 @@ function tree(array) {
                 let rightHeight = node.right === null ? 0 : this.height(node.right.data) + 1
 
                 let diff = leftHeight - rightHeight
-                diff = diff > 0 ? diff : diff * -1
-
-                if (diff > 1) return 'Tree is unbalanced.'
+                diff = diff >= 0 ? diff : diff * -1
 
                 console.log(`Node: ${node.data}, Diff: ${diff}, Left: ${leftHeight}, Right: ${rightHeight}`)
 
-                checkTree(node.left)
-                checkTree(node.right)
+                if (diff > 1) return diff
 
-                return 'Tree is balanced.'
+                let leftDF = checkTree(node.left)
+                let rightDF = checkTree(node.right)
+
+                return leftDF ? leftDF : rightDF
             }
 
-            return checkTree(tmp)
+            if (checkTree(tmp) > 1) {
+                return 'Tree is unbalanced.'
+            } else {
+                return 'Tree is balanced.'
+            }
         },
 
         rebalance() {},
@@ -335,7 +339,7 @@ const noDuplicates = sortedArr.filter((elem, idx) => {
 
 const rootNode = tree(noDuplicates)
 
-rootNode.insert(6)
+// rootNode.insert(6)
 
 // INSERTION
 // rootNode.insert(10)
@@ -390,9 +394,11 @@ rootNode.insert(6)
 // console.log(rootNode.depth(6))
 
 // ISBALANCE (CHECK IF TREE IS BALANCED)
-// console.log(rootNode.insert(10))
-// console.log(rootNode.insert(11))
-// console.log(rootNode.insert(13))
+// rootNode.insert(0)
+// rootNode.insert(2)
+// rootNode.insert(10)
+// rootNode.insert(11)
+// rootNode.insert(13)
 console.log(rootNode.isBalanced())
 
 prettyPrint(rootNode.root)
