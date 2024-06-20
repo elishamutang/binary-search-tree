@@ -1,8 +1,8 @@
 {
     "name": "binary-search-tree-by-eli",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "description": "",
-    "main": "index.js",
+    "main": "./src/binarySearchTree.js",
     "type" : "module",
     "scripts": {
         "build": "webpack --config webpack.prod.js",
